@@ -5,59 +5,43 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PokemonHashMap {
-
-    // Sintaxe enxuta suportada no JDK 25+
-    static void main() {
-        HashMap<String, String> mapa = new HashMap<>();
-
+    public static void main(String[] args) {
+        HashMap<String, String> pokemon = new HashMap<>();
         do {
             try {
-                // 1. Cadastro de Pokémons
-                String nome, tipo;
+                String nome, tipagem;
                 do {
-                    nome = JOptionPane.showInputDialog("Digite o NOME de um Pokémon ou digite \"FIM\" para encerrar").toUpperCase();
-
-                    if (!nome.equals("FIM")) {
-                        if (mapa.containsKey(nome)) {
-                            JOptionPane.showMessageDialog(null, "Pokémon JA cadastrado!");
-                        } else {
-                            tipo = JOptionPane.showInputDialog("Digite o TIPO do pokémon informado").toUpperCase();
-                            mapa.put(nome, tipo);
-                        }
+                    nome = JOptionPane.showInputDialog("Informe o nome do pokemon e digite \"FIM\" para finalizar").toUpperCase();
+                    if (nome.equals("FIM")) {
+                        break;
                     }
-                } while (!nome.equals("FIM"));
+                    if (pokemon.containsKey(nome)) {
+                        JOptionPane.showMessageDialog(null, "Pokemon já cadastrado!");
+                    } else {
+                        tipagem = JOptionPane.showInputDialog("Informe a tipagem do pokemon");
+                        pokemon.put(nome, tipagem);
+                    }
+                } while (true);
 
-                // 2. Pedir um tipo qualquer
-                String escolha = JOptionPane.showInputDialog("Digite o TIPO de Pokémon que deseja buscar").toUpperCase();
-
-                // 3. Percorrer o HashMap buscando os pokémons do tipo escolhido
-                StringBuilder pokemonsEncontrados = new StringBuilder();
+                String elemento = JOptionPane.showInputDialog("Digite uma tipagem de pokemon para ver quais pokemons tem a mesma tipagem.");
+                String lista = "Tipagem escolhida: " + elemento + "\nPokemons com a mesma tipagem:";
                 boolean encontrou = false;
-
-                for (Map.Entry<String, String> entry : mapa.entrySet()) {
-                    if (entry.getValue().equals(escolha)) {
-                        pokemonsEncontrados.append("- ").append(entry.getKey()).append("\n");
+                for (Map.Entry<String, String> nomes : pokemon.entrySet()) {
+                    if (nomes.getValue().equalsIgnoreCase(elemento)) {
+                        lista += "\n" + nomes.getKey();
                         encontrou = true;
                     }
                 }
-
-                // Exibindo o resultado da busca
                 if (encontrou) {
-                    JOptionPane.showMessageDialog(null,
-                            "Tipo escolhido: " + escolha + "\n\n" +
-                                    "Nomes de todos os Pokémons desse tipo:\n" + pokemonsEncontrados.toString());
+                    JOptionPane.showMessageDialog(null, lista);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Nenhum Pokémon do tipo " + escolha + " foi encontrado!");
+                    JOptionPane.showMessageDialog(null, "Tipagem não registrada!");
                 }
-
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
+        } while (JOptionPane.showConfirmDialog(null, "Deseja continuar?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0);
 
-            // 4. Perguntar se deseja continuar
-        } while (JOptionPane.showConfirmDialog(null, "Deseja continuar?","Atencao",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0);
-
-        // 5. Em caso negativo, exibir mensagem se despedindo
-        JOptionPane.showMessageDialog(null, "Programa encerrado. Até logo!");
+        JOptionPane.showMessageDialog(null, "Até a próxima!", "Adeus", JOptionPane.INFORMATION_MESSAGE);
     }
 }

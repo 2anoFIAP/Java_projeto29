@@ -22,7 +22,7 @@ public class ExemploHashMap {
                     }
                 } while(!sigla.equals("FIM"));
                 // realizando a consulta de um estado pelo seu UF
-                String escolha = JOptionPane.showInputDialog("Digite a UF de um estado qualquer");
+                String escolha = JOptionPane.showInputDialog("Digite a UF de um estado qualquer").toUpperCase();
                 if(mapa.containsValue(escolha)){
                     JOptionPane.showMessageDialog(null, "Nome do Estado: " + mapa.get(escolha));
                 } else {
